@@ -1,0 +1,19 @@
+
+mkdir devcerts
+mkcert my-app.com "*.my-app.com"
+
+
+run app: ruby -run -e httpd . -p 3000
+
+
+nano /etc/hosts
+  127.0.0.1       my-app.com
+
+
+run containers
+  docker-compose up
+
+check:
+- go http://my-app.com redirect to https://my-app.com
+
+- traefik's dashboard: http://my-app.com:8080

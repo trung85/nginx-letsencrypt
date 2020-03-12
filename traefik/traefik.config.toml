@@ -1,0 +1,33 @@
+[http]
+  [http.routers]
+    [http.routers.http-to-my-app]
+      # You can change the rules here and make it more complex. Check traefik
+      # docs!
+      rule = "Host(`my-app.com`)"
+      service = "my-app"
+      entrypoints = ["http"]
+      middlewares = ["redirect"]
+
+    [http.routers.https-to-my-app]
+      rule = "Host(`my-app.com`)"
+      service = "my-app"
+      entrypoints = ["https"]
+      [http.routers.https-to-my-app.tls]
+
+  [http.services]
+    [http.services.my-app]
+      [http.services.my-app.loadBalancer]
+       passHostHeader = true
+
+        [[http.services.my-app.loadBalancer.servers]]
+          # This is where your dev app lives.
+          url = "http://192.168.1.114:3000/"
+
+  [http.middlewares]
+    [http.middlewares.redirect.redirectScheme]
+      scheme = "https"
+
+[tls]
+  [[tls.certificates]]
+    certFile = "/etc/certs/my-app.com+1.pem"
+    keyFile = "/etc/certs/my-app.com+1-key.pem"
