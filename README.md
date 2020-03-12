@@ -1,5 +1,17 @@
 # Nginx-Letsencrypt Docker
 
-A single container to allow an nginx container to be up and running with an ACME certificate with a single command.
+domain test: example.loc
 
-This is a companion repository to the post where its usage is explained @ https://ilhicas.com/2019/03/02/Nginx-Letsencrypt-Docker.html
+docker build -t test-nginx-letsencrypt -f Dockerfile .
+
+docker run -v $PWD/certs:/etc/letsencrypt -e DOMAIN=example.loc -e EMAIL=trungg.dev@abc.com -p 80:80 -p 443:443 -d test-nginx-letsencrypt:latest
+
+
+
+domain: exampless.gq
+
+docker build -t minhtrung/nginx-letsencrypt -f Dockerfile .
+
+docker run -v $PWD/certs:/etc/letsencrypt -e DOMAIN=exampless.gq -e EMAIL=trungg.dev@abc.com -p 80:80 -p 443:443 -d minhtrung/nginx-letsencrypt:latest
+
+

@@ -2,7 +2,7 @@ if [[ ! -f /var/www/certbot ]]; then
     mkdir -p /var/www/certbot
 fi
 certbot certonly \
-        --config-dir "${LETSENCRYPT_DIR:-/etc/letsencrypt}" \
+    --config-dir "${LETSENCRYPT_DIR:-/etc/letsencrypt}" \
 		--agree-tos \
 		--domains "$DOMAIN" \
 		--email "$EMAIL" \
